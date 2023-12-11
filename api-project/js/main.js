@@ -18,19 +18,20 @@ try {
 
 getData(URL) */
 
-const url = 'https://api-football-v1.p.rapidapi.com/v3/fixtures?date=2021-01-29';
-const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': 'SIGN-UP-FOR-KEY',
-		'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com'
-	}
-};
+const url = 'https://pokeapi.co/api/v2/';
 
-try {
-	const response = await fetch(url, options);
-	const result = await response.text();
+async function getData(endpoint){
+ try {
+	const response = await fetch(url + endpoint);
+	const result = await response.json();
 	console.log(result);
 } catch (error) {
-	console.error(error);
+	
+}}
+
+async function getPokeInfo() {
+	const ditto = await getData(`pokemon/132`);
+	console.log('Pokemon Info', ditto);
 }
+
+getPokeInfo();
