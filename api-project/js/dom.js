@@ -5,6 +5,7 @@ const DOMSelectors = {
 	ground: document.getElementById("btn4"),
 	rock: document.getElementById("btn5"),
 	ghost: document.getElementById("btn6"),
+	themeSwitch: document.getElementById(),
 }
 
 
