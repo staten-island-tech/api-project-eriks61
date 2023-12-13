@@ -51,42 +51,49 @@ h1 {
   height: 60px;
   width: 200px;
   font-size: 1.5rem;
-  margin: 20px;
+  margin: 13px;
 }
 #btn2 {
   background-color: var(--secondary);
   height: 60px;
   width: 200px;
   font-size: 1.5rem;
-  margin: 20px;
+  margin: 13px;
 }
 #btn3 {
   background-color: var(--secondary);
   height: 60px;
   width: 200px;
   font-size: 1.5rem;
-  margin: 20px;
+  margin: 13px;
 }
 #btn4 {
   background-color: var(--secondary);
   height: 60px;
   width: 200px;
   font-size: 1.5rem;
-  margin: 20px;
+  margin: 13px;
 }
 #btn5 {
   background-color: var(--secondary);
   height: 60px;
   width: 200px;
   font-size: 1.5rem;
-  margin: 20px;
+  margin: 13px;
 }
 #btn6 {
+  background-color: var(--secondary);
+  height: 60px;
+  width: 200px;
+  font-size: 1.5rem;
+  margin: 13px;
+}
+#btn7 {
   background-color: var(--secondary);
   height: 30px;
   width: 100px;
   font-size: 0.75rem;
-  margin: 20px;
+  margin: 13px;
 }
 .flex-container {
   display: flex;
@@ -102,6 +109,7 @@ h6 {
 }
 #text {
   font-size: 4rem;
+  margin: 25px;
 }
 .card-name {
   text-align: center;

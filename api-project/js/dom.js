@@ -5,7 +5,8 @@ const DOMSelectors = {
 	ground: document.getElementById("btn4"),
 	rock: document.getElementById("btn5"),
 	ghost: document.getElementById("btn6"),
-	themeSwitch: document.getElementById(),
+	gallery: document.getElementById("card-container"),
+	themeSwitch: document.getElementById("btn7"),
 }
 
 
@@ -21,12 +22,17 @@ async function getData(endpoint){
 }}
 
 async function getPokeInfo() {
-	const ditto = await getData(`pokemon/132`);
+	const ditto = await getData(`type/ground`);
 	console.log('Pokemon Info', ditto);
 }
 
 getPokeInfo();
 
+function createGallery(){
+	DOMSelectors.gallery.innerHTML = "";
+
+
+}
 
 
 
