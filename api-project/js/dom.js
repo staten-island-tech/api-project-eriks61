@@ -37,6 +37,37 @@ function createGallery(arr) {
   });
 }
 
+DOMSelectors.grass.addEventListener("click", async () => {
+  const grass = await getData(`type/grass`);
+  createGallery("Pokemon Info", grass);
+});
+
+DOMSelectors.fire.addEventListener("click", async () => {
+  const fire = await getData(`type/fire`);
+  createGallery("Pokemon Info", fire);
+});
+
+DOMSelectors.water.addEventListener("click", async () => {
+  const water = await getData(`type/water`);
+  createGallery("Pokemon Info", water);
+});
+
+DOMSelectors.ground.addEventListener("click", async () => {
+  const ground = await getData(`type/ground`);
+  createGallery("Pokemon Info", ground);
+});
+
+DOMSelectors.rock.addEventListener("click", async () => {
+  const rock = await getData(`type/rock`);
+  createGallery("Pokemon Info", rock);
+});
+
+DOMSelectors.ghost.addEventListener("click", async () => {
+  const ghost = await getData(`type/ghost`);
+  console.log("Pokemon Info", ghost);
+});
+
+
 DOMSelectors.themeSwitch.addEventListener("click", () => {
   const currentTheme = document.body.classList.contains("cool")
     ? "warm"
