@@ -68,7 +68,7 @@ async function getData(url){
         catch (error) {
           console.log("no info");
           document.querySelector("h2").textContent = "Berry doesn't exist!"
-        DOMSelectors.form.addEventListener
+        DOMSelectors.search.addEventListener
         
         }
       }
