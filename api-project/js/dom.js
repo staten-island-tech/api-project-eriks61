@@ -9,61 +9,66 @@ const DOMSelectors = {
   themeSwitch: document.getElementById("btn7"),
 };
 
-const url = "https://pokeapi.co/api/v2/";
+const url = "https://pokeapi.co/api/v2/pokemon/";
 
-async function getData(endpoint) {
-  try {
-    const response = await fetch(url + endpoint);
-    const result = await response.json();
-    console.log(result);
-  } catch (error) {}
-}
+async function getData(url){
+    try{
+        const response = await fetch (url);
+        if (response.status !=200){
+            throw new Error (response.statusText);
+        }
+        const data = await response.json();
+        function createGallery(arr){
+            arr.forEach((data) => {
+             DOMSelectors.gallery.insertAdjacentHTML("afterbegin", 
+             `<div class="card">
+             <h2 class ="name">${data.name}</h2>
+             <h3 class ="type">${data.type}</h3>
+             `
+             
+             
+             );
+        
+             }
+            )   
+            };
+        }
+    }
 
 async function getPokeInfo() {
-  const ditto = await getData(`type/ground`);
+  const ditto = await getData(`ground`);
   console.log("Pokemon Info", ditto);
 }
 
 getPokeInfo();
 
-function createGallery(arr) {
-  DOMSelectors.gallery.innerHTML = "";
-  arr.forEach((data) => {
-    DOMSelectors.gallery.insertAdjacentElement(
-      "beforeend",
-      `div class="card">
-<h2 class="name">${data.name}`
-    );
-  });
-}
-
 DOMSelectors.grass.addEventListener("click", async () => {
-  const grass = await getData(`type/grass`);
+  const grass = await getData(`grass`);
   createGallery("Pokemon Info", grass);
 });
 
 DOMSelectors.fire.addEventListener("click", async () => {
-  const fire = await getData(`type/fire`);
+  const fire = await getData(`fire`);
   createGallery("Pokemon Info", fire);
 });
 
 DOMSelectors.water.addEventListener("click", async () => {
-  const water = await getData(`type/water`);
+  const water = await getData(`water`);
   createGallery("Pokemon Info", water);
 });
 
 DOMSelectors.ground.addEventListener("click", async () => {
-  const ground = await getData(`type/ground`);
+  const ground = await getData(`ground`);
   createGallery("Pokemon Info", ground);
 });
 
 DOMSelectors.rock.addEventListener("click", async () => {
-  const rock = await getData(`type/rock`);
+  const rock = await getData(`rock`);
   createGallery("Pokemon Info", rock);
 });
 
 DOMSelectors.ghost.addEventListener("click", async () => {
-  const ghost = await getData(`type/ghost`);
+  const ghost = await getData(`ghost`);
   console.log("Pokemon Info", ghost);
 });
 
