@@ -8,80 +8,75 @@ const DOMSelectors = {
   gallery: document.getElementById("card-container"),
   themeSwitch: document.getElementById("btn7"),
   h2: document.getElementById("h2"),
-  search: document.querySelector("input[name='Find a berry']")
+  search: document.querySelector("searcher"),
+  enter: document.querySelector("btn8")
 };
 
 const url = "https://pokeapi.co/api/v2/pokemon/";
 
-async function getData(url){
-    try{
-        const response = await fetch (url);
-        if (response.status !=200){
-            throw new Error (response.statusText);
-        }
-        const data = await response.json();
-        function createGallery(arr){
-            arr.forEach((data) => {
-             DOMSelectors.gallery.insertAdjacentHTML("afterbegin", 
-             `<div class="card">
+async function getData(url) {
+  try {
+    const response = await fetch(url);
+    if (response.status != 200) {
+      throw new Error(response.statusText);
+    }
+    const data = await response.json();
+    function createGallery(arr) {
+      arr.forEach((data) => {
+        DOMSelectors.gallery.insertAdjacentHTML(
+          "beforeend",
+          `<div class="boxy">
              <h2 class ="name">${data.name}</h2>
              <h3 class ="type">${data.type}</h3>
              </div>`
-             
-             
-             );
-        
-             }
-            )   
-            };
-            createGallery(data)
-            data.forEach((data) => {console.log(data.name)})
+        );
+      });
+    }
+    createGallery(data);
+    ;
+  } catch (error) {
+    DOMSelectors.h2.textContent = "Can't find!";
+  }
+  getData(url);
+
+  function clear() {
+    DOMSelectors.gallery.innerHTML = "";
+  }
+
+  DOMSelectors.enter.addEventListener("submit", function (event) {
+    event.preventDefault();
+    clear();
+    let value = DOMSelectors.search.value;
+    let link = `https://pokeapi.co/api/v2/berry/${value}`;
+    async function getData(link) {
+      try {
+        const response = await fetch(link);
+        if (response.status != 200) {
+          throw new Error(response.statusText);
         }
-        catch(error){
-          DOMSelectors.h2.textContent="Can't find!"
-        }
-    DOMSelectors.enter.addEventListener("submit", function(event){
-      event.preventDefault();
-      clear();
-      let value = DOMSelectors.search.value
-      let link = `https://pokeapi.co/api/v2/berry/${value}`
-      async function getData(link){
-        try{
-          const response = await fetch (link);
-          if (response.status !=200){
-            throw new Error (response.statusText);
-          }
-          const data = await response.json();
-          function createGallery(arr){
-            arr.forEach((data) => {
-              DOMSelectors.gallery.insertAdjacentHTML(
-                'beforeend', 
-                `<div class="card>
+        const data = await response.json();
+        function createGallery(arr) {
+          arr.forEach((data) => {
+            DOMSelectors.gallery.insertAdjacentHTML(
+              "beforeend",
+              `<div class="boxy">
                 <h2 class="name">${data.name}</h2>
                 <h2 class="size">${data.size}</h2>
                 <h2 class="smoothness">${data.smoothness}</h2>`
-              )
-            })
-          };
-          createGallery(data);
+            );
+          });
         }
-        catch (error) {
-          console.log("no info");
-          document.querySelector("h2").textContent = "Berry doesn't exist!"
-        DOMSelectors.search.addEventListener
-        
-        }
+        createGallery(data);
+      } catch (error) {
+        console.log("no info");
+        document.querySelector("h2").textContent = "Berry doesn't exist!";
+        DOMSelectors.search.addEventListener;
       }
-    })
-      }
-      getData(url)
+    }
+    getData(link);
+  });
+}
 
-      function clear(){
-        DOMSelectors.gallery.innerHTML = "";
-      }
-      function clearhead(){
-        DOMSelectors.h2.innerHTML=""
-      }
 async function getPokeInfo() {
   const ditto = await getData(`ground`);
   console.log("Pokemon Info", ditto);
@@ -118,7 +113,6 @@ DOMSelectors.ghost.addEventListener("click", async () => {
   const ghost = await getData(`ghost`);
   console.log("Pokemon Info", ghost);
 });
-
 
 DOMSelectors.themeSwitch.addEventListener("click", () => {
   const currentTheme = document.body.classList.contains("cool")
