@@ -104,23 +104,12 @@ h1 {
 body {
   background-color: var(--tertiary);
 }
-h6 {
-  font-size: 0.9rem;
-}
 #text {
   font-size: 4rem;
   margin: 25px;
 }
 .card-name {
   text-align: center;
-  margin: 20px;
-}
-.card-image {
-  height: 60%;
-  width: 90%;
-  background-size: cover;
-  position: center;
-  background-repeat: no-repeat;
   margin: 20px;
 }
 .card-health {
