@@ -1,3 +1,4 @@
+import "../css/style.css";
 const DOMSelectors = {
   grass: document.getElementById("btn1"),
   fire: document.getElementById("btn2"),
@@ -7,112 +8,247 @@ const DOMSelectors = {
   ghost: document.getElementById("btn6"),
   gallery: document.getElementById("card-container"),
   themeSwitch: document.getElementById("btn7"),
-  h2: document.getElementById("h2"),
-  search: document.querySelector("searcher"),
-  enter: document.querySelector("btn8")
 };
 
-const url = "https://pokeapi.co/api/v2/pokemon/";
+function createGallery(pokedeets) {
+  const gallerycon = DOMSelectors.gallery;
+  gallerycon.innerHTML = "";
+  if (Array.isArray(pokedeets)) {
+    pokedeets.forEach((pokemon) => {
+      const card = document.createElement("div");
+      card.classList.add("boxy");
 
-async function getData(url) {
+      const name = document.createElement("h2");
+      name.classList.add("card.name");
+      name.textContent = `${pokemon.name}`;
+
+      const health = document.createElement("h3");
+      health.classList.add("card.health");
+      health.textContent = `HEALTH: ${pokemon.health}`;
+
+      const height = document.createElement("h3");
+      height.classList.add("card.height");
+      height.textContent = `HEIGHT: ${pokemon.height}`;
+
+      card.appendChild(name);
+      card.appendChild(health);
+      card.appendChild(height);
+
+      gallerycon.appendChild(card);
+    });
+  }
+}
+createGallery();
+
+async function getPokeInfograss() {
+  const url = "https://pokeapi.co/api/v2/type/grass";
   try {
     const response = await fetch(url);
-    if (response.status != 200) {
-      throw new Error(response.statusText);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
-    function createGallery(arr) {
-      arr.forEach((data) => {
-        DOMSelectors.gallery.insertAdjacentHTML(
-          "beforeend",
-          `<div class="boxy">
-             <h2 class ="name">${data.name}</h2>
-             <h3 class ="type">${data.type}</h3>
-             </div>`
-        );
-      });
-    }
-    createGallery(data);
-    ;
+    const pokedeets = await Promise.all(
+      data.pokemon.map(async (entry) => {
+        const pokemonResponse = await fetch(entry.pokemon.url);
+        if (!pokemonResponse.ok) {
+          throw new Error(`error! Status: ${pokemonResponse.status}`);
+        }
+        const pokemonData = await pokemonResponse.json();
+        const health = pokemonData.stats.find(
+          (stat) => stat.stat.name === "hp"
+        ).base_stat;
+        const pokeheight = pokemonData.height;
+
+        return {
+          name: entry.pokemon.name,
+          health: health,
+          height: pokeheight,
+        };
+      })
+    );
+
+    createGallery(pokedeets);
   } catch (error) {
-    DOMSelectors.h2.textContent = "Can't find!";
+    console.error("error", error);
   }
-  getData(url);
+}
+DOMSelectors.grass.addEventListener("click", getPokeInfograss);
 
-  function clear() {
-    DOMSelectors.gallery.innerHTML = "";
-  }
-
-  DOMSelectors.enter.addEventListener("submit", function (event) {
-    event.preventDefault();
-    clear();
-    let value = DOMSelectors.search.value;
-    let link = `https://pokeapi.co/api/v2/berry/${value}`;
-    async function getData(link) {
-      try {
-        const response = await fetch(link);
-        if (response.status != 200) {
-          throw new Error(response.statusText);
-        }
-        const data = await response.json();
-        function createGallery(arr) {
-          arr.forEach((data) => {
-            DOMSelectors.gallery.insertAdjacentHTML(
-              "beforeend",
-              `<div class="boxy">
-                <h2 class="name">${data.name}</h2>
-                <h2 class="size">${data.size}</h2>
-                <h2 class="smoothness">${data.smoothness}</h2>`
-            );
-          });
-        }
-        createGallery(data);
-      } catch (error) {
-        console.log("no info");
-        document.querySelector("h2").textContent = "Berry doesn't exist!";
-        DOMSelectors.search.addEventListener;
-      }
+async function getPokeInfofire() {
+  const url = "https://pokeapi.co/api/v2/type/fire";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    getData(link);
-  });
+    const data = await response.json();
+    const pokedeets = await Promise.all(
+      data.pokemon.map(async (entry) => {
+        const pokemonResponse = await fetch(entry.pokemon.url);
+        if (!pokemonResponse.ok) {
+          throw new Error(`error! Status: ${pokemonResponse.status}`);
+        }
+        const pokemonData = await pokemonResponse.json();
+        const health = pokemonData.stats.find(
+          (stat) => stat.stat.name === "hp"
+        ).base_stat;
+        const pokeheight = pokemonData.height;
+
+        return {
+          name: entry.pokemon.name,
+          health: health,
+          height: pokeheight,
+        };
+      })
+    );
+
+    createGallery(pokedeets);
+  } catch (error) {
+    console.error("error", error);
+  }
 }
+DOMSelectors.fire.addEventListener("click", getPokeInfofire);
 
-async function getPokeInfo() {
-  const ditto = await getData(`ground`);
-  console.log("Pokemon Info", ditto);
+async function getPokeInfowater() {
+  const url = "https://pokeapi.co/api/v2/type/water";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    const pokedeets = await Promise.all(
+      data.pokemon.map(async (entry) => {
+        const pokemonResponse = await fetch(entry.pokemon.url);
+        if (!pokemonResponse.ok) {
+          throw new Error(`error! Status: ${pokemonResponse.status}`);
+        }
+        const pokemonData = await pokemonResponse.json();
+        const health = pokemonData.stats.find(
+          (stat) => stat.stat.name === "hp"
+        ).base_stat;
+        const pokeheight = pokemonData.height;
+
+        return {
+          name: entry.pokemon.name,
+          health: health,
+          height: pokeheight,
+        };
+      })
+    );
+
+    createGallery(pokedeets);
+  } catch (error) {
+    console.error("error", error);
+  }
 }
+DOMSelectors.water.addEventListener("click", getPokeInfowater);
 
-getPokeInfo();
+async function getPokeInfoground() {
+  const url = "https://pokeapi.co/api/v2/type/ground";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    const pokedeets = await Promise.all(
+      data.pokemon.map(async (entry) => {
+        const pokemonResponse = await fetch(entry.pokemon.url);
+        if (!pokemonResponse.ok) {
+          throw new Error(`error! Status: ${pokemonResponse.status}`);
+        }
+        const pokemonData = await pokemonResponse.json();
+        const health = pokemonData.stats.find(
+          (stat) => stat.stat.name === "hp"
+        ).base_stat;
+        const pokeheight = pokemonData.height;
 
-DOMSelectors.grass.addEventListener("click", async () => {
-  const grass = await getData(`grass`);
-  createGallery("Pokemon Info", grass);
-});
+        return {
+          name: entry.pokemon.name,
+          health: health,
+          height: pokeheight,
+        };
+      })
+    );
 
-DOMSelectors.fire.addEventListener("click", async () => {
-  const fire = await getData(`fire`);
-  createGallery("Pokemon Info", fire);
-});
+    createGallery(pokedeets);
+  } catch (error) {
+    console.error("error", error);
+  }
+}
+DOMSelectors.ground.addEventListener("click", getPokeInfoground);
 
-DOMSelectors.water.addEventListener("click", async () => {
-  const water = await getData(`water`);
-  createGallery("Pokemon Info", water);
-});
+async function getPokeInforock() {
+  const url = "https://pokeapi.co/api/v2/type/rock";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    const pokedeets = await Promise.all(
+      data.pokemon.map(async (entry) => {
+        const pokemonResponse = await fetch(entry.pokemon.url);
+        if (!pokemonResponse.ok) {
+          throw new Error(`error! Status: ${pokemonResponse.status}`);
+        }
+        const pokemonData = await pokemonResponse.json();
+        const health = pokemonData.stats.find(
+          (stat) => stat.stat.name === "hp"
+        ).base_stat;
+        const pokeheight = pokemonData.height;
 
-DOMSelectors.ground.addEventListener("click", async () => {
-  const ground = await getData(`ground`);
-  createGallery("Pokemon Info", ground);
-});
+        return {
+          name: entry.pokemon.name,
+          health: health,
+          height: pokeheight,
+        };
+      })
+    );
 
-DOMSelectors.rock.addEventListener("click", async () => {
-  const rock = await getData(`rock`);
-  createGallery("Pokemon Info", rock);
-});
+    createGallery(pokedeets);
+  } catch (error) {
+    console.error("error", error);
+  }
+}
+DOMSelectors.rock.addEventListener("click", getPokeInforock);
 
-DOMSelectors.ghost.addEventListener("click", async () => {
-  const ghost = await getData(`ghost`);
-  console.log("Pokemon Info", ghost);
-});
+async function getPokeInfoghost() {
+  const url = "https://pokeapi.co/api/v2/type/dark";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    const pokedeets = await Promise.all(
+      data.pokemon.map(async (entry) => {
+        const pokemonResponse = await fetch(entry.pokemon.url);
+        if (!pokemonResponse.ok) {
+          throw new Error(`error! Status: ${pokemonResponse.status}`);
+        }
+        const pokemonData = await pokemonResponse.json();
+        const health = pokemonData.stats.find(
+          (stat) => stat.stat.name === "hp"
+        ).base_stat;
+        const pokeheight = pokemonData.height;
+
+        return {
+          name: entry.pokemon.name,
+          health: health,
+          height: pokeheight,
+        };
+      })
+    );
+
+    createGallery(pokedeets);
+  } catch (error) {
+    console.error("error", error);
+  }
+}
+DOMSelectors.ghost.addEventListener("click", getPokeInfoghost);
 
 DOMSelectors.themeSwitch.addEventListener("click", () => {
   const currentTheme = document.body.classList.contains("cool")
